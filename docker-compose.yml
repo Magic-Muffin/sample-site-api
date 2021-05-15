@@ -1,0 +1,19 @@
+version: '3'
+services:
+    api:
+        build: "."
+    redis:
+        container_name: redis-cache
+        image: redis
+        ports:
+            - '${REDIS_HOST}:${REDIS_HOST}'
+    postgres:
+        container_name: postgres-backend
+        image: postgres
+        environment:
+            - 'POSTGRES_PASSWORD: ${POSTGRES_PW}'
+            - 'POSTGRES_USER: ${POSTGRES_USER}'
+            - 'POSTGRES_DB: ${POSTGRES_DB}'
+        ports:
+            - '${POSTGRES_HOST}:${POSTGRES_HOST}'
+        

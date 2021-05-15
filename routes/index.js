@@ -1,8 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+const ExpressRedisCache = require('express-redis-cache')
+
+const cache = ExpressRedisCache({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  expire: 10,
+})
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', cache.route(), function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
